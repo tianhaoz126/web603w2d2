@@ -1,10 +1,9 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
-  useRouteMatch,
   useParams
   
 } from "react-router-dom";
@@ -25,14 +24,11 @@ export default function App() {
             </li>
           </ul>
 
-          <Switch>
-            <Route path="/about" ><About />
-          </Route>
-            <Route path="/topics" ><Topics />
-          </Route>
-            <Route path="/"><Home />
-          </Route>
-          </Switch>
+          <Routes>
+          <Route path="/about" element={<About />}>
+          <Route path="/users" element={<Users />}>
+          <Route exact path="/" element={<Home />}>
+        </Routes>
         </div>
     </Router>
   );
@@ -52,28 +48,21 @@ function About() {
 }
 
 function Topics() {
-  let match = useRouteMatch();
-
   return (
     <div>
       <h2>Topics</h2>
+      <p>Choose your favourate topic</p>
       <ul>
         <li>
-          <Link to={`${match.url}/cats`}>Cats</Link>
+          <Link to= {"/topics/cats"}>Cats</Link>
         </li>
         <li>
-          <Link to={`${match.url}/dogs`}>Dogs</Link>
+        <Link to= {"/topics/dogs"}>Dogs</Link>
         </li>
       </ul>
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-
+      <Routes>
+        <Route path = {"topics/:topicID"} element={<Topic />} />
+      </Routes>
     </div>
   );
 }
