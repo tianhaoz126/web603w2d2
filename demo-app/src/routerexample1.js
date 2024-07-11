@@ -22,17 +22,11 @@ export default function App() {
             </li>
           </ul>
         </nav>
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/about" element={<About />}>
+          <Route path="/users" element={<Users />}>
+          <Route exact path="/" element={<Home />}>
+        </Routes>
       </div>
     </Router>
   );
